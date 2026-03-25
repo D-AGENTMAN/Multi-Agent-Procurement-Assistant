@@ -1,0 +1,62 @@
+---
+mock_rfq_processor:
+  description: 'For manual testing: Simulate processing an RFQ email for ''Office
+    Supplies''. This bypasses Gmail fetching to avoid context issues during manual
+    runs. Output a clean, structured result that the next task can process.'
+  expected_output: 'RFQ_FOUND: Product category is Office Supplies. Attachment processed:
+    none. Ready for supplier research.'
+  agent: email_filter_specialist
+supplier_research:
+  description: Based on the product category identified from the RFQ email filtering
+    task, research and identify potential suppliers globally. Focus on company information,
+    product offerings, contact details, reputation, and basic credibility indicators.
+    Compile a comprehensive list of at least 5-10 potential suppliers with detailed
+    profiles.
+  expected_output: A detailed list of potential suppliers for the identified product
+    category including company names, locations, product offerings, contact information,
+    company size, years in business, and initial reputation assessment
+  agent: supplier_research_specialist
+  context:
+  - mock_rfq_processor
+quote_analysis:
+  description: Analyze pricing information for the identified product category and
+    suppliers from previous research. If CSV attachment data was processed from the
+    RFQ email, analyze that pricing data. If no attachment data is available, research
+    and estimate typical market pricing, MOQ ranges, and lead times for the product
+    category from the identified suppliers. Compare available pricing information
+    and identify cost-effective options.
+  expected_output: A comprehensive pricing analysis comparing suppliers with available
+    unit costs, estimated price ranges, MOQ requirements, lead times, and value assessment.
+    Include a ranked list of suppliers by cost-effectiveness and value proposition,
+    clearly noting when pricing is estimated vs. provided from RFQ attachments
+  agent: procurement_analyst
+  context:
+  - supplier_research
+risk_assessment:
+  description: Conduct thorough risk analysis for the top suppliers identified in
+    previous analysis for the product category from the RFQ email. Evaluate financial
+    stability, geopolitical risks, single-source dependencies, quality certifications
+    (ISO, industry-specific), regulatory compliance, and operational risks. Research
+    recent news, financial reports, and industry standing for each supplier.
+  expected_output: A detailed risk assessment report for each top supplier including
+    risk scores (High/Medium/Low) for financial, operational, geopolitical, and compliance
+    risks, with specific risk mitigation recommendations
+  agent: supply_chain_risk_analyst
+  context:
+  - supplier_research
+  - quote_analysis
+final_procurement_report:
+  description: Create a comprehensive procurement recommendation report that synthesizes
+    all findings from supplier research, pricing analysis, and risk assessment for
+    the product category identified from the RFQ email. Structure the report with
+    executive summary, detailed supplier comparison, risk analysis summary, and final
+    recommendations with clear reasoning.
+  expected_output: 'A professional markdown-formatted procurement report including:
+    Executive Summary, Supplier Comparison Table, Risk Analysis Summary, Cost-Benefit
+    Analysis, Final Recommendation with top 3 supplier choices ranked and justified,
+    and Next Steps for procurement process'
+  agent: procurement_report_writer
+  context:
+  - supplier_research
+  - quote_analysis
+  - risk_assessment

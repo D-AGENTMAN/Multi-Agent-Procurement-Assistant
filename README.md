@@ -1,75 +1,54 @@
-# Multi-Agent Procurement Assistant using CrewAI 🚀
+# RfqProcurementAutomationTestMode Crew
 
-## 📌 Overview
+Welcome to the RfqProcurementAutomationTestMode Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
 
-This project demonstrates a **multi-agent AI system** built using CrewAI to automate key procurement workflows including supplier discovery, quote analysis, risk assessment, and final decision-making.
+## Installation
 
-The system mimics how a real procurement team operates—by assigning specialized roles to different AI agents and orchestrating them into a structured workflow.
+Ensure you have Python >=3.10 <3.14 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
 
----
+First, if you haven't already, install uv:
 
-## 💡 Problem Statement
+```bash
+pip install uv
+```
 
-Procurement teams often spend significant time on:
+Next, navigate to your project directory and install the dependencies:
 
-* Identifying and evaluating suppliers
-* Comparing supplier quotes (pricing, MOQ, lead time)
-* Assessing supplier risks
-* Creating final recommendation reports
+(Optional) Lock the dependencies and install them by using the CLI command:
+```bash
+crewai install
+```
+### Customizing
 
-These tasks are **manual, time-consuming, and repetitive**.
+**Add your `OPENAI_API_KEY` into the `.env` file**
 
----
+- Modify `src/rfq_procurement_automation_test_mode/config/agents.yaml` to define your agents
+- Modify `src/rfq_procurement_automation_test_mode/config/tasks.yaml` to define your tasks
+- Modify `src/rfq_procurement_automation_test_mode/crew.py` to add your own logic, tools and specific args
+- Modify `src/rfq_procurement_automation_test_mode/main.py` to add custom inputs for your agents and tasks
 
-## 🤖 Solution
+## Running the Project
 
-A **multi-agent procurement assistant** that automates the end-to-end sourcing workflow using AI agents with distinct responsibilities.
+To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
 
----
+```bash
+$ crewai run
+```
 
-## 🧠 Agents & Responsibilities
+This command initializes the rfq_procurement_automation_test_mode Crew, assembling the agents and assigning them tasks as defined in your configuration.
 
-### 1. Supplier Research Specialist
+This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
 
-* Uses web search (Serper API)
-* Identifies and evaluates potential suppliers globally
-* Gathers supplier capabilities and market presence
+## Understanding Your Crew
 
----
+The rfq_procurement_automation_test_mode Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
 
-### 2. Procurement Analyst
+## Support
 
-* Reads and analyzes supplier quote files
-* Compares:
+For support, questions, or feedback regarding the RfqProcurementAutomationTestMode Crew or crewAI.
+- Visit our [documentation](https://docs.crewai.com)
+- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
+- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
+- [Chat with our docs](https://chatg.pt/DWjSBZn)
 
-  * Pricing
-  * Minimum Order Quantity (MOQ)
-  * Lead times
-* Identifies cost-effective sourcing options
-
----
-
-### 3. Supply Chain Risk Analyst
-
-* Performs external risk assessment using web search
-* Evaluates:
-
-  * Financial stability
-  * Geopolitical risks
-  * Certifications & compliance
-
----
-
-### 4. Procurement Report Writer
-
-* Synthesizes all agent outputs
-* Generates a **professional procurement report**
-* Provides final supplier recommendations
-
----
-
-## 🔄 Workflow
-
-Supplier Research → Quote Analysis → Risk Assessment → Final Procurement Report
-
-This structured workflow ensures **data-driven and risk-informed sourcing deci**
+Let's create wonders together with the power and simplicity of crewAI.
